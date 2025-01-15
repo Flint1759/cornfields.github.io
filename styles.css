@@ -1,0 +1,28 @@
+/* Устанавливаем общие стили */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Стиль для фона */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('leaves.jpg') no-repeat center center/cover;
+    filter: blur(10px);
+    z-index: -1; /* Отправляем слой на задний план */
+}
+
+/* Стиль для основного содержимого */
+.content {
+    position: relative;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+

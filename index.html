@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cornfields (Початок)</title>
+    <!-- Import Google Font Raleway -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+	
+		#preloader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+	}
+
+	#preloader.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+	
+	.footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-weight: 700;
+        z-index: 10;
+    }
+        body {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            background-color: #000000;
+            color: white;
+            margin: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .nav a:hover {
+            color: #FFD700;
+        }
+
+        .background {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: url('images/kukuruza.jpg') no-repeat center center/cover;
+filter: blur(10px);
+z-index: -1; /* Отправляем слой на задний план */
+}
+
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: black;
+            padding: 20px;
+            margin-top: 80px; /* To avoid overlap with the navigation bar */
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 100;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.5em;
+            font-weight: 300;
+        }
+		.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    color: black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.close-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-bt
+
+    </style>
+	<script>
+    function showDetails(name, info) {
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        modalContent.innerHTML = `<h2>${name}</h2><p>${info}</p><button class='close-btn' onclick='closeModal()'>Закрыть</button>`;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+</script>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.getElementById('preloader');
+
+    // Убираем загрузчик после загрузки страницы
+    window.setTimeout(() => {
+        preloader.classList.add('hidden');
+    }, 500); // 500ms для плавного скрытия
+
+    // Переход между страницами
+    const links = document.querySelectorAll('.nav a');
+
+    links.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                event.preventDefault();
+                preloader.classList.remove('hidden'); // Показываем загрузчик
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500); // Ждем завершения анимации
+            }
+        });
+    });
+});
+</script>
+
+</head>
+<body>
+
+	<div id="preloader">
+		<h1 style="color: white;">🌽</h1>
+	</div>
+
+    <div class="nav">
+        <a href="index.html">Главная</a>
+        <a href="gallery.html">Галерея</a>
+        <a href="#" onclick="showDetails('Лор', 'Под золотыми полями кукурузы скрывается множество тайн, но пока их шелест знает лишь создатель. Лор еще не взошел, словно зерна, ожидающие своей весны...')">Лор</a>
+        <a href="members.html">Участники</a>
+
+    </div>
+    <div class="background"></div>
+    <div class="content">
+        <h1>Початок - это не просто группа, а целая семья.</h1>
+        <p>Добро пожаловать! Это главная страница галереи и истории Початка.</p>
+    </div>
+	<div class="footer">
+	<div id="modal" class="modal">
+    <div id="modal-content" class="modal-content"></div>
+</div>
+
+    Made by Flint
+</div>
+</body>
+</html>

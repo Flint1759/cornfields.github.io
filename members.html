@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members of Cornfields</title>
+    <!-- Import Google Font Raleway -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+	
+			#preloader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+	}
+
+	#preloader.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+		
+
+	h1 {
+    color: #35170C; /* Устанавливаем цвет текста на чёрный */
+}
+
+	.footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-weight: 700;
+        z-index: 10;
+    }
+        body {
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+            background-color: #26262D;
+            color: white;
+            margin: 0;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .nav a:hover {
+            color: #FFD700;
+        }
+		
+		        h1 {
+            font-size: 3em;
+            font-weight: 100;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.5em;
+            font-weight: 300;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/kukuruza2.jpg') no-repeat center center/cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+            margin-top: 80px;
+        }
+
+        .participants {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .participant {
+            background-color: #1e1e1e;
+            color: #FDF4E3;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .participant:hover {
+            transform: scale(1.05);
+        }
+
+        .participant img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .participant-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            color: black;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .close-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .close-btn:hover {
+            background-color: #555;
+        }
+		.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/kukuruza.jpg') no-repeat center center/cover; /* Укажите путь к вашему изображению */
+    filter: blur(10px); /* Эффект размытия */
+    z-index: -1; /* Отправляем слой на задний план */
+}
+
+    </style>
+    <script>
+        function showDetails(name, info) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `<h2>${name}</h2><p>${info}</p><button class='close-btn' onclick='closeModal()'>Закрыть</button>`;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+    </script>
+	
+		<script>
+	document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.getElementById('preloader');
+
+    // Убираем загрузчик после загрузки страницы
+    window.setTimeout(() => {
+        preloader.classList.add('hidden');
+    }, 500); // 500ms для плавного скрытия
+
+    // Переход между страницами
+    const links = document.querySelectorAll('.nav a');
+
+    links.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                event.preventDefault();
+                preloader.classList.remove('hidden'); // Показываем загрузчик
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500); // Ждем завершения анимации
+            }
+        });
+    });
+});
+</script>
+	
+</head>
+<body>
+
+	<div id="preloader">
+		<h1 style="color: white;">🌽</h1>
+	</div>
+
+    <div class="nav">
+        <a href="index.html">Главная</a>
+        <a href="gallery.html">Галерея</a>
+        <a href="#" onclick="showDetails('Лор', 'Под золотыми полями кукурузы скрывается множество тайн, но пока их шелест знает лишь создатель. Лор еще не взошел, словно зерна, ожидающие своей весны...')">Лор</a>
+        <a href="members.html">Участники</a>
+    </div>
+	<div class="background"></div>
+
+    <div class="background"></div>
+    <div class="content">
+        <h1>Участники группы "Початок"</h1>
+        <div class="participants">
+            <div class="participant" onclick="showDetails('koffuyu (Мила)', 'Именно она создатель нашего Початка. Любит читать книги, слушать музыку, а также смотреть фильмы и сериалы. У Милы есть кот по имени Физик, которого она очень любит.  Интересный факт: Любимые мультфильмы Тайна Коко и Вселенная Стивена.')">
+                <img src="images/koffuyu.jpg" alt="koffuyu">
+                <div class="participant-name">koffuyu</div>
+            </div>
+            <div class="participant" onclick="showDetails('Саматикс (Extremaly slay)', 'Самый Slay среди всего початка. Шарит за множество фандомов, обожает проводить время за онлайн играми в компании. Живет за границей и вообще буржуй божи')">
+                <img src="images/samray.jpg" alt="Самат Искаков">
+                <div class="participant-name">Samray</div>
+            </div>
+            <div class="participant" onclick="showDetails('Ясмина (Почему у тебя нету ника)', 'Душа компании, всегда на позитиве. Также как и Самат, любит проводить время за играми с друзьями. Обожает аниме Bungou Stray Dogs, а любимый персонаж Ацуши. Очень любит пейринг Shin Soukoku.')">
+                <img src="images/yasmina.jpg" alt="Ясмина">
+                <div class="participant-name">Ясминко</div>
+            </div>
+			<div class="participant" onclick="showDetails('Emma (Алуа)', 'Практически всегда за любой движ, классный юмор и вкус в музыке. Также любитель чего-то необычного (Нью Роки с мехом с вб)')">
+                <img src="images/emma.jpg" alt="Алуа">
+                <div class="participant-name">Emma</div>
+            </div>
+			<div class="participant" onclick="showDetails('Флинт (Максим)', 'Любит играть на гитаре, в будущем хотел бы создать свою группу. Слушает разную музыку и в свободное время играет в компьютерные игры. Обожает животных, в частности кошек и собак. Жертва маркетинга (Иногда тратит деньги на скины в играх)  ')">
+                <img src="images/flint.jpg" alt="Флинт">
+                <div class="participant-name">Флинт</div>
+            </div>
+			<div class="participant" onclick="showDetails('lvkller (Анеля)', 'Очень классный танцор, любит корейскую культуру, в частности K-POP. Также любит иногда покушать рамен или китайские соевые палочки (Латяо)')">
+                <img src="images/anelya.jpg" alt="Анеля">
+                <div class="participant-name">lvkller</div>
+            </div>
+			<div class="participant" onclick="showDetails('vmailyx (Аян)', 'Главный косплеер Початка, шарит за большое количество фандомов. При рукопожатии всегда получается тот самый братский хлопок :)')">
+                <img src="images/ayan.jpg" alt="Аян">
+                <div class="participant-name">vmailyx</div>
+            </div>
+			<div class="participant" onclick="showDetails('Азия (Зика)', 'Хорошо умеет кататься на роликах и коньках. Любит немецкую поп-рок группу Tokio Hotel, а любимчик оттуда Том Каулиц.')">
+                <img src="images/aziya.jpg" alt="Азия">
+                <div class="participant-name">Зика</div>
+            <!-- Add more participants here as needed -->
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div id="modal-content" class="modal-content"></div>
+    </div>
+	<div class="footer">
+    Made by Flint
+</div>
+</body>
+</html>

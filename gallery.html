@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+	<!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+    <style>
+	
+			#preloader {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+	}
+
+	#preloader.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+	
+	body {
+    font-family: 'Raleway', sans-serif;
+}
+
+	.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 1.2em;
+    z-index: 10;
+}
+
+	.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    color: black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.close-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-btn:hover {
+    background-color: #555;
+}
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #26262D;
+            color: white;
+            overflow: auto;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .nav a:hover {
+            color: #FFD700;
+        }
+
+		        h1 {
+            font-size: 3em;
+            font-weight: 100;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.5em;
+            font-weight: 300;
+        }
+
+        .background {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: url('images/kukuruza2.jpg') no-repeat center center/cover;
+			filter: blur(1px);
+			z-index: -1; /* Отправляем слой на задний план */
+		}
+
+        .gallery {
+            column-count: 4;
+            column-gap: 15px;
+            padding: 80px 20px 20px; /* Adjusted for fixed navigation */
+        }
+
+        .gallery-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+
+        .gallery img {
+            width: 100%;
+            display: block;
+            filter: blur(5px);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            filter: blur(0);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Сохраняет пропорции изображения */
+    border-radius: 10px; /* Добавим немного скругления */
+}
+
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+		
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+            margin-top: 80px;
+        }
+		
+		<!-- Парцы -->
+        .participants {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .participant {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .participant:hover {
+            transform: scale(1.05);
+        }
+
+        .participant img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .participant-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+		
+		<!-- Модалка -->
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            color: black;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .close-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .close-btn:hover {
+            background-color: #555;
+        }
+    </style>
+	
+<script>
+    function showDetails(name, info) {
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        modalContent.innerHTML = `<h2>${name}</h2><p>${info}</p><button class='close-btn' onclick='closeModal()'>Закрыть</button>`;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+</script>
+
+</head>
+<body>
+
+	<div id="preloader">
+		<h1 style="color: white;">🌽</h1>
+	</div>
+
+    <div class="nav">
+        <a href="index.html">Главная</a>
+        <a href="gallery.html">Галерея</a>
+        <a href="#" onclick="showDetails('Лор', 'Под золотыми полями кукурузы скрывается множество тайн, но пока их шелест знает лишь создатель. Лор еще не взошел, словно зерна, ожидающие своей весны...')">Лор</a>
+        <a href="members.html">Участники</a>
+    </div>
+	<div class="background"></div>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328968182714728468/9438aaa2-4a90-4801-909d-fdad5f894932.png?ex=6788a191&is=67875011&hm=ac7a2e660945b6c2dbf0083f9aecd414396bd897c5851760914fe74b28c9f3a7&=&format=webp&quality=lossless&width=852&height=638" alt="Image 1">
+            <div class="caption">На Медео</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328968344103157770/f13475a5-2753-4651-a6df-af896cf6824c.png?ex=6788a1b8&is=67875038&hm=d4842c4e0a004d852ee094a2d96f1b1d9471212f525819619c4267a028748354&=&format=webp&quality=lossless&width=419&height=314" alt="Image 2">
+            <div class="caption">Ждем Пиццу</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328968416068898816/8c7c23ea-2c5a-4567-8386-92080ca43732.png?ex=6788a1c9&is=67875049&hm=b83227e44fd89e3f47fd83d95164b9baa5344813f0318a328d5d8bd102001785&=&format=webp&quality=lossless&width=852&height=638" alt="Image 3">
+            <div class="caption">Аманда, Линда и Роуз</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971422009393192/IMG_5815.jpg?ex=6788a496&is=67875316&hm=f2bb4825cafaaae5ae2cb5239d403b73aa11634dc2b50ecf3f3c415a28da655f&=&format=webp&width=478&height=638" alt="Image 4">
+            <div class="caption">Учуяла родное...</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971422499864657/IMG_5816.jpg?ex=6788a496&is=67875316&hm=c948d536a8b8b56a7f9c4d6ca4e01d5e93d3ecd2abad89e82cf55f8fe43abfad&=&format=webp&width=478&height=638" alt="Image 5">
+            <div class="caption">Гуляем в ТЦ</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971422751784980/IMG_5817.jpg?ex=6788a496&is=67875316&hm=892e38fc1139ad9c90ecb8e803a6e3902cbc7b1e78e6acfa1ea31236031b8bb5&=&format=webp&width=852&height=638" alt="Image 6">
+            <div class="caption">Покушали, наелись...</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971422999121921/IMG_5818.jpg?ex=6788a496&is=67875316&hm=01e8576f195f19681dd8204c6b77f102ed4b7b3a41629e6fbf936ae0c0135bb9&=&format=webp&width=852&height=638" alt="Image 6">
+            <div class="caption">Покушали писю</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971423254970459/IMG_5819.jpg?ex=6788a496&is=67875316&hm=1b23a09f6476e07953eb48cc4e94fbecfe94ac9b551104a789bf1194bd41957c&=&format=webp&width=852&height=638" alt="Image 6">
+            <div class="caption">Пугают Ясю...</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971423917801492/IMG_5821.jpg?ex=6788a496&is=67875316&hm=08c701fac88aa1570f0387e0e47824bc2fffa8e3096e57c92d7704bf8dfdb6aa&=&format=webp&width=852&height=638" alt="Image 6">
+            <div class="caption">В одно окно смотрели двое...</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971424248889394/IMG_5822.jpg?ex=6788a496&is=67875316&hm=97f4fa5210eac993bd29a6838cdcd85ed5fcb43d59929360ce7a080064b31bd1&=&format=webp&width=852&height=638" alt="Image 6">
+            <div class="caption">Потерялись в пространстве</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971424538300426/IMG_5823.jpg?ex=6788a496&is=67875316&hm=169fd60cc996ee6cd3efe22d90e047f9e0fee1e389041ad24b91b7d021e820e5&=&format=webp&width=478&height=638" alt="Image 6">
+            <div class="caption">Четыре легенды</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971424869777511/IMG_5824.jpg?ex=6788a496&is=67875316&hm=a7adefa727224b4f5b5e50df5fe8e496f4fdfc37b880e5a12b375d452daf73c2&=&format=webp&width=478&height=638" alt="Image 6">
+            <div class="caption">После Новогодней гулянки</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971437041782895/IMG_5825.jpg?ex=6788a499&is=67875319&hm=8cd6e9c50f70136d1b6f813696da2d338883b3f354cc5eda8ff3ece79839f7d5&=&format=webp&width=478&height=638" alt="Image 6">
+            <div class="caption">Мили</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1328971437494505513/IMG_5826.jpg?ex=6788a499&is=67875319&hm=d0d2f49b0523085fc46a8beef1a9b3064854476237027cfabf34cbe25e8013ae&=&format=webp&width=478&height=638" alt="Image 6">
+            <div class="caption">Сердечка</div>
+        </div>
+		<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005314934050837/37BA99D9-8E37-43DC-9F1C-557BC76CDA58.jpg?ex=6788c426&is=678772a6&hm=f78fae3e5143dbc002036dbce69cb963e7b5ee647bcfe0deec871ffcc22a963d&=&format=webp&width=503&height=671" alt="Image 6">
+            <div class="caption">Структура Початка xD</div>
+        </div>
+		<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005315185971271/50B96492-1336-406C-B7C6-0A41E3D6D5F6.jpg?ex=6788c426&is=678772a6&hm=1584ff52bc2ffdaa430081651ec2cfbcd4e6295b1620bac69ea0fb404f4115b2&=&format=webp&width=1141&height=671" alt="Image 6">
+            <div class="caption">Собрались в хоррор</div>
+			</div>
+		<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005315508797460/10CF3550-DBA3-4375-9DF0-8DA562F1A351.jpg?ex=6788c426&is=678772a6&hm=44dc3f9c1732e16895bb154289fbd007d105823bc2a757fe5455be5e5030edbb&=&format=webp&width=503&height=671" alt="Image 6">
+         <div class="caption">В бассейне у Яси</div>	
+		 </div>
+        <div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005315781300224/80D4A51B-AF3E-4CFB-8514-2F818C33ED3F.jpg?ex=6788c427&is=678772a7&hm=231194cfbb8dc81cf078f19c449c59b70712b82df11e881bf3b169d1b32ca9b7&=&format=webp&width=895&height=671" alt="Image 6526">
+            <div class="caption">Наш уютный уголок в Майнкрафте</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005316058386512/4AE76D69-41A7-4BE1-A76F-D9FF480321A1.jpg?ex=6788c427&is=678772a7&hm=57ce8b27baabc677b0bced29373f149a8ff22c5d53a488867c727a38e5f2cdd0&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">Зря забуллили...</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005316326690906/6F7D2E3A-D30F-4A65-8D98-0F0C9CA095AE.jpg?ex=6788c427&is=678772a7&hm=2405ea1f16bd1e93613dbf57403b049943af76735845d5b8fba329d8c4322472&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">Буллинг Физика</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005316591058975/D295A02B-6355-4440-92DF-306BE3FBB3E2.jpg?ex=6788c427&is=678772a7&hm=f988f8da3974a77446c85edc5f90eb404a9284a2fc54a4eb88cbc09d681224ac&=&format=webp&width=1193&height=671" alt="Image 6526">
+            <div class="caption">Самат вшоки с сюрприза</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005316838391899/8B3B23CB-914F-4D85-BC04-EE16B3B7C6AE.jpg?ex=6788c427&is=678772a7&hm=8b661329143f898e8c0aefe2019b500eaf1883915f0e81344933c7b8786b6ce6&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">На Фесте</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005317123477545/C30F7E5B-4100-4336-9349-8B6CDF10CAF5.jpg?ex=6788c427&is=678772a7&hm=8f1941e3a28511519a875386ca8b628ca7de041d95a4bc51a49f8aef42949d80&=&format=webp&width=1193&height=671" alt="Image 6526">
+            <div class="caption">Смайл фейс</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005317413015615/34E9E969-18E2-4134-929F-84E84437DD41.jpg?ex=6788c427&is=678772a7&hm=36223536b6c0b2faa69dfb9ab66b946d56312b935542b92114dfb3b672efd384&=&format=webp&width=895&height=671" alt="Image 6526">
+            <div class="caption">После феста заскочили в Додо</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005351714164796/7134DFD6-611C-4FEA-BEF8-011831673EE6.jpg?ex=6788c42f&is=678772af&hm=0cba3705440d9d9777b84978d7285f6920eb5799a2b95c2ae8b62dea5b864629&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">Встреча легенд</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005351986663424/AE1B3234-AF96-4574-A5B7-9358D61996BA.jpg?ex=6788c42f&is=678772af&hm=03bf1b922bb0eeb9c2c0d99a25cff1e183b0c73699676a5ee330fcbba85c78a9&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">Силли Физик</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329005352259424307/52866AA4-9371-4055-8BA9-5CD955BB3C37.jpg?ex=6788c42f&is=678772af&hm=95ab481ff5dd2a05fb84e0a3d2fa5d1e9efdc4da21d794ade1db1d96db2dd9d9&=&format=webp&width=503&height=671" alt="Image 6526">
+            <div class="caption">Крутышки</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329064632127590553/eb1cb547-f7dd-4d5e-8a1a-22a952687c96.png?ex=6788fb65&is=6787a9e5&hm=691fdba8b6e8841e17c50b58d40dc3a419a5c07aeddd211f1c8251f56d73ec1f&=&format=webp&quality=lossless&width=550&height=254" alt="Image 6526">
+            <div class="caption">Играем в DOORS</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329061011524812850/e994e114-dcf7-4546-8301-bd7a5f9b0203.png?ex=6788f805&is=6787a685&hm=1121c74d4214bb82fe50862db3e634836c1fc777e66f4516f609ac5cc3196631&=&format=webp&quality=lossless&width=503&height=671" alt="Image 6526">
+            <div class="caption">На концерте Мазелова :)</div>
+    </div>
+	<div class="gallery-item">
+            <img src="<div class="gallery-item">
+            <img src="https://media.discordapp.net/attachments/745907733038891118/1329061561557581918/b8c11059-cf1f-4cd3-91c3-697caeb92ea5.png?ex=6788f889&is=6787a709&hm=44d25da9b4e8a3eb9e3e904d68f4722606a7f6bb98ccadf64f653dad28c8a631&=&format=webp&quality=lossless&width=1193&height=671" alt="Image 6526">
+            <div class="caption">День Рождение Самата :з</div>
+    </div>
+ 
+    <div class="overlay" id="overlay">
+        <span class="overlay-close" id="closeOverlay">&times;</span>
+        <img src="" alt="Full Image" id="overlayImage">
+    </div>
+	
+    <script>
+        const images = document.querySelectorAll('.gallery img');
+        const overlay = document.getElementById('overlay');
+        const overlayImage = document.getElementById('overlayImage');
+        const closeOverlay = document.getElementById('closeOverlay');
+
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                overlayImage.src = image.src;
+                overlay.classList.add('active');
+            });
+        });
+
+        closeOverlay.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+    </script>
+	
+		<script>
+	document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.getElementById('preloader');
+
+    // Убираем загрузчик после загрузки страницы
+    window.setTimeout(() => {
+        preloader.classList.add('hidden');
+    }, 500); // 500ms для плавного скрытия
+
+    // Переход между страницами
+    const links = document.querySelectorAll('.nav a');
+
+    links.forEach(link => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                event.preventDefault();
+                preloader.classList.remove('hidden'); // Показываем загрузчик
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 500); // Ждем завершения анимации
+            }
+        });
+    });
+});
+</script>
+	
+    </div>
+    <div id="modal" class="modal">
+        <div id="modal-content" class="modal-content"></div>
+    </div>
+	<div class="footer">
+    Made by Flint
+</div>
+</body>
+</html>
